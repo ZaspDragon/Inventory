@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Inventory Fix & Find Log</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Inventory Fix & Find Log</h1>
+      <p class="subtitle">Track issues, actions, and wins. Auto-saved on your device.</p>
+    </header>
+
+    <section class="card">
+      <form id="logForm" autocomplete="off">
+        <label>
+          <span>Your Name</span>
+          <input type="text" id="name" placeholder="Enter your name" required />
+        </label>
+
+        <div class="grid">
+          <label>
+            <span>Date</span>
+            <input type="date" id="date" required />
+          </label>
+          <label>
+            <span>Location (door/aisle/slot)</span>
+            <input type="text" id="location" placeholder="Door 12, Aisle B, Slot B-14" required />
+          </label>
+        </div>
+
+        <label>
+          <span>Problem Found</span>
+          <select id="problemSelect" required>
+            <option value="" disabled selected>Choose a problem…</option>
+            <option>Missing pallet</option>
+            <option>Cycle count discrepancy</option>
+            <option>Mis-slotted pallet</option>
+            <option>Label mismatch</option>
+            <option>Damaged freight</option>
+            <option>Short/Over (OS&D)</option>
+            <option>Wrong SKU in slot</option>
+            <option>Quantity mismatch</option>
+            <option>Staging/door mix-up</option>
+            <option>Other</option>
+          </select>
+          <input type="text" id="problemOther" placeholder="Describe the problem" style="display:none; margin-top:8px;" />
+        </label>
+
+        <label>
+          <span>Action Taken</span>
+          <select id="actionSelect" required>
+            <option value="" disabled selected>Choose an action…</option>
+            <option>Moved to correct slot</option>
+            <option>Updated WMS / system count</option>
+            <option>Relabeled pallet</option>
+            <option>Notified lead/supervisor</option>
+            <option>Corrected cycle count</option>
+            <option>Staged for OS&D</option>
+            <option>Other</option>
+          </select>
+          <input type="text" id="actionOther" placeholder="Describe the action" style="display:none; margin-top:8px;" />
+        </label>
+
+        <label>
+          <span>Additional Notes (optional)</span>
+          <textarea id="notes" rows="2" placeholder="Any details, PO, SKU, door #, etc."></textarea>
+        </label>
+
+        <div class="actions">
+          <button type="submit" class="btn primary">Add Entry</button>
+          <button type="button" id="exportBtn" class="btn success">Export CSV</button>
+          <button type="button" id="reportBtn" class="btn">Generate Report Now</button>
+          <button type="button" id="clearBtn" class="btn danger outline">Clear All</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="table-header">
+        <h2>My Log Entries</h2>
+        <input id="search" class="search" type="search" placeholder="Search name, problem, location, action…" />
+      </div>
+      <div class="table-wrap">
+        <table id="logTable" aria-describedby="Log entries">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Name</th>
+              <th>Problem</th>
+              <th>Location</th>
+              <th>Action Taken</th>
+              <th>Notes</th>
+              <th>—</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p id="emptyState" class="empty">No entries yet. Add your first fix above.</p>
+    </section>
+
+    <section class="card">
+      <div class="table-header">
+        <h2>Report Preview (latest 12 entries)</h2>
+        <span class="muted">Auto-download triggers every time your total hits 12, 24, 36…</span>
+      </div>
+      <div id="reportPreview" class="report-preview"></div>
+    </section>
+
+    <footer class="muted">
+      <small>Saved locally in your browser (no server). Tip: export CSV weekly.</small>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
